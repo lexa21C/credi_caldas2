@@ -142,9 +142,9 @@ const totalCobrar = filteredcreditos.reduce((total, credito) => {
             <Card className="shadow">
               <CardHeader className="border-0">
                 <h3 className="mb-0">Lista de créditos</h3>
-                <p style={{ marginTop: "10px", fontWeight: "bold", color: "#2dce89" }}>
+                {/* <p style={{ marginTop: "10px", fontWeight: "bold", color: "#2dce89" }}>
   Total de todas las cuotas: ${totalCobrar.toLocaleString("es-CO")}
-</p>
+</p> */}
 
                 <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
                   <input
