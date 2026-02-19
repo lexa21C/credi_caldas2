@@ -26,11 +26,15 @@ const ListaCobrar = () => {
   const itemsPerPage = 10; // Número de clientes por página
   const [typeProfile, setTypeProfile] = useState(null);
   const navigate = useNavigate(); // Hook para navegar entre rutas
-   const [noPasarCreditos, setNoPasarCreditos] = useState(() => {
+  const [noPasarCreditos, setNoPasarCreditos] = useState(() => {
     const saved = localStorage.getItem("noPasarCreditos");
     return saved ? JSON.parse(saved) : [];
   });
 
+  const [PasarCreditos, setPasarCreditos] = useState(() => {
+    const saved = localStorage.getItem("PasarCreditos");
+    return saved ? JSON.parse(saved) : [];
+  });
   // Cálculo de los índices para la paginación
   const firstIndex = (currentPage - 1) * itemsPerPage;
   const lastIndex = firstIndex + itemsPerPage;
@@ -108,6 +112,14 @@ const ListaCobrar = () => {
     setNoPasarCreditos(updated);
     localStorage.setItem("noPasarCreditos", JSON.stringify(updated));
   };
+  const handlePasar = (creditoId) => {
+    const updated = PasarCreditos.includes(creditoId)
+      ? PasarCreditos.filter((id) => id !== creditoId)
+      : [...PasarCreditos, creditoId];
+
+    setPasarCreditos(updated);
+    localStorage.setItem("PasarCreditos", JSON.stringify(updated));
+  };
   // ✅ Sumar total de todas las cuotas
 const totalCobrar = filteredcreditos.reduce((total, credito) => {
   if (Array.isArray(credito.cuotas)) {
@@ -168,7 +180,12 @@ const totalCobrar = filteredcreditos.reduce((total, credito) => {
                     <tr
                       key={credito.cliente.id}
                       style={{
-                        backgroundColor: noPasarCreditos.includes(credito.id) ? "#f8d7da" : "transparent",
+                        backgroundColor: noPasarCreditos.includes(credito.id)
+      ? "#f8d7da"      // 🔴 rojo
+      : PasarCreditos.includes(credito.id)
+      ? "#d4edda"      // 🟢 verde
+      : "transparent",
+                        
                       }}
                     >
                       <td>{credito.cliente.num_ruta}</td>
@@ -207,7 +224,13 @@ const totalCobrar = filteredcreditos.reduce((total, credito) => {
                           className="btn btn-warning btn-sm"
                           onClick={() => handleNoPasar(credito.id)}
                         >
-                          No pasar
+                          <i className="ni ni-like-2" />
+                        </button>
+                        <button
+                          className="btn btn-success btn-sm"
+                          onClick={() => handlePasar(credito.id)}
+                        >
+                          <i className="ni ni-time-alarm" />
                         </button>
                       </td>
                     </tr>

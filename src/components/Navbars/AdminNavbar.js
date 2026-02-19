@@ -48,6 +48,15 @@ const AdminNavbar = (props) => {
   if (noPasar) {
     localStorage.setItem("noPasarCreditos", noPasar);
   }
+   const Pasar = localStorage.getItem("PasarCreditos");
+
+  // Limpiar todo el localStorage
+  localStorage.clear();
+
+  // Restaurar la lista de "no pasar" si existía
+  if (Pasar) {
+    localStorage.setItem("PasarCreditos", Pasar);
+  }
 
   navigate("/auth/login");
 };
