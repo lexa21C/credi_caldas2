@@ -166,6 +166,7 @@ const totalCobrar = filteredcreditos.reduce((total, credito) => {
                 <thead className="thead-light">
                   <tr>
                     <th scope="col"># Ruta</th>
+                    <th scope="col">#</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">$</th>
                     <th scope="col">Celular</th>
@@ -189,6 +190,14 @@ const totalCobrar = filteredcreditos.reduce((total, credito) => {
                       }}
                     >
                       <td>{credito.cliente.num_ruta}</td>
+                      <td>
+                        <button
+                          className="btn btn-warning btn-sm"
+                          onClick={() => handleNoPasar(credito.id)}
+                        >
+                          <i className="ni ni-like-2" />
+                        </button>
+                      </td>
                       <td>{credito.cliente.nombre_completo}</td>
                       <td>
                         <button
